@@ -6,12 +6,12 @@ df = pd.read_csv('https://raw.githubusercontent.com/wtitze/3E/main/2010.csv', se
 
 @app.route('/', methods=['GET'])
 def form():
-    return render_template('form.html')
+    return render_template('form1.html')
 
 @app.route('/risultati', methods=['GET'])
 def risultati():
     filmInput = request.args.get('filmInput')
-    film = df[df.Title.str.contains(filmInput)]
+    film = df[df.Genres.str.contains.filmInput]
     if len(film) == 0:
         table = 'film non trovato'
     else:

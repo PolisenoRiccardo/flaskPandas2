@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<head>
+    <title>Inserisci la Regione</title>
+</head>
+<body>
+    <form action="/risultati" method="get">
+        <label for="filmInput">Scegli un genere</label>
+        <select name="filmInput">
+        {% for genere in moviesGenres %}
+        <option value={{genere}}>{{genere}}</option>
+        {% endfor %}
+        </select>      
+        <p><input type = "submit" value = "CLICCA" /></p>
+    </form>
+</body>
+</html>
