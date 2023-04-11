@@ -11,7 +11,7 @@ def form():
 @app.route('/risultati', methods=['GET'])
 def risultati():
     filmInput = request.args.get('filmInput')
-    film = df[df.Title == filmInput]
+    film = df[df.Title.str.contains(filmInput)]
     if len(film) == 0:
         table = 'film non trovato'
     else:
