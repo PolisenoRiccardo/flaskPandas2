@@ -4,8 +4,14 @@
 </head>
 <body>
     <form action="/risultati" method="get">
-        <p>Inserisci del film:</p>
-        <input type = "text" name = "filmInput" />
+        <p>Inserisci un film:</p>
+        <div style="height: 500px;width: 400px;overflow:auto">
+        {% for film in moviesTitle %}
+        <input type="radio" name="filmInput" value={{film}}>
+        <label for="filmInput">{{film}}</label><br>
+        {% endfor %}
+        </div>
+        <!--<input type = "text" name = "filmInput" />-->
         <p><input type = "submit" value = "CLICCA" /></p>
     </form>
 </body>
