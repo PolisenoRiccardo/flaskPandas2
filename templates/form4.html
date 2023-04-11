@@ -5,7 +5,7 @@
 <body>
     <form action="/risultati" method="get">
         {% for genere in moviesGenres %}
-        <input type="radio" id="filmInput" name="filmInput" value={{genere}}>
+        <input type="checkbox" id="filmInput" name="filmInput" value={{genere}}>
         <label for="filmInput">{{genere}}</label><br>
         {% endfor %}     
         <p><input type = "submit" value = "CLICCA" /></p>
