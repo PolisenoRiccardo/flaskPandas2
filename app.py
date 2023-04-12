@@ -76,8 +76,10 @@ def form4():
 
 @app.route('/risultati4', methods=['GET'])
 def risultati4():
-    filmInput = str(request.args.get('filmInput'))
-    film = df[df.Genres.str.contains(filmInput)]
+    filmInput = request.args.get('filmInput')
+    film = pd.DataFrame()
+    for i in filmInput:
+       film = pd.concat([film, df[df.Genres.str.contains(i)]])
     if len(film) == 0:
         table = 'film non trovato'
     else:
