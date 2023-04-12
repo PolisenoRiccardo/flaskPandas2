@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response
 app = Flask(__name__)
 
 import pandas as pd
@@ -71,7 +71,7 @@ def risultati3():
 @app.route('/form4', methods=['GET'])
 def form4():
     moviesGenres = df[~df['Genres'].str.contains('\|')]['Genres'].to_list()
-    moviesGenres = list(set(moviesGenres))
+    moviesGenres = sorted(list(set(moviesGenres)))
     return render_template('form4.html', moviesGenres = moviesGenres )
 
 @app.route('/risultati4', methods=['GET'])
@@ -91,5 +91,24 @@ def risultato5():
     table = df[df['Budget'].isna()].to_html()
     return render_template('risultato.html', table = table)
 
+@app.route('/form6', methods=['GET'])
+def risultato6():
+    import io
+    import matplotlib.pyplot as plt
+    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+    from matplotlib.figure import Figure
+    
+    y = df.groupby('Language').count().sort_values(by='Title', ascending=False)['Title']
+    x = y.index
+    
+    fig, ax = plt.subplots(figsize = (15, 8))   
+    ax.bar(x, y)
+    plt.xticks(rotation=45)
+    plt.xlabel("Lingue")
+    plt.ylabel("Numero di Film")
+    plt.title("Numero di film per ogni lingua")
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=3245, debug=True)
+  app.run(host='0.0.0.0', port=32245, debug=True)
